@@ -9,6 +9,8 @@ export interface AsyncStoreState<T = unknown> extends StoreState<T> {
   isFetching: boolean
   lastFetched?: number
   retryCount: number
+  isStale: boolean
+  isCacheExpired: boolean
 }
 
 export interface StoreActions<T = unknown> {
@@ -24,6 +26,7 @@ export interface AsyncStoreActions<T = unknown> extends StoreActions<T> {
   invalidate: () => void
   retry: () => Promise<T>
   mutate: (data: T | ((prev: T) => T)) => void
+  cleanup: () => void
 }
 
 export interface Store<T = unknown> {

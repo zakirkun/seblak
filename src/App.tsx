@@ -1,6 +1,7 @@
 import { createStore, useSeblak } from './lib'
 import { UserProfileDemo } from './examples/UserProfile'
 import { UserProfile, WeatherWidget } from './examples/AsyncExamples'
+import { CacheDemo } from './examples/CacheDemo'
 import './App.css'
 
 // Define the shape of our counter state
@@ -75,6 +76,7 @@ function App() {
         <UserProfileDemo />
         <UserProfile />
         <WeatherWidget />
+        <CacheDemo />
       </div>
       
       <div className="info-section">

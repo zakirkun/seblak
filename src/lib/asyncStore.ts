@@ -13,6 +13,7 @@ export function createAsyncStore<T = unknown>(
     initialState,
     name = 'SeblakAsyncStore',
     staleTime = 5 * 60 * 1000, // 5 minutes
+    cacheTime = 10 * 60 * 1000, // 10 minutes
     retry: retryOption = 3,
     retryDelay = (attempt) => Math.min(1000 * 2 ** attempt, 30000),
     refetchOnWindowFocus = true,
@@ -28,7 +29,9 @@ export function createAsyncStore<T = unknown>(
     isRefetching: false,
     isFetching: false,
     lastFetched: undefined,
-    retryCount: 0
+    retryCount: 0,
+    isStale: true,
+    isCacheExpired: true
   }
 
   const listeners = new Set<AsyncStoreListener<T>>()
@@ -74,9 +77,37 @@ export function createAsyncStore<T = unknown>(
       isRefetching: false,
       isFetching: false,
       lastFetched: undefined,
-      retryCount: 0
+      retryCount: 0,
+      isStale: true,
+      isCacheExpired: true
     }
     notifyListeners()
+  }
+
+  const checkIsStale = (): boolean => {
+    if (!state.lastFetched) return true
+    return Date.now() - state.lastFetched > staleTime
+  }
+
+  const checkIsCacheExpired = (): boolean => {
+    if (!state.lastFetched) return true
+    return Date.now() - state.lastFetched > cacheTime
+  }
+
+  const updateCacheStatus = () => {
+    const stale = checkIsStale()
+    const expired = checkIsCacheExpired()
+    
+    if (state.isStale !== stale || state.isCacheExpired !== expired) {
+      state = { ...state, isStale: stale, isCacheExpired: expired }
+      notifyListeners()
+    }
+  }
+
+  // Background cache status updater - clean up on store destruction
+  let cacheStatusInterval: number | null = null
+  if (typeof window !== 'undefined') {
+    cacheStatusInterval = window.setInterval(updateCacheStatus, 1000)
   }
 
   const shouldRetry = (failureCount: number, error: Error): boolean => {
@@ -120,7 +151,9 @@ export function createAsyncStore<T = unknown>(
         isRefetching: false,
         error: null,
         lastFetched: Date.now(),
-        retryCount: 0
+        retryCount: 0,
+        isStale: false,
+        isCacheExpired: false
       }
       notifyListeners()
       
@@ -137,7 +170,7 @@ export function createAsyncStore<T = unknown>(
           executeFetch(isRefetch)
         }, delay)
         
-        return Promise.reject(error)
+        return Promise.reject(error as Error)
       }
 
       state = {
@@ -156,6 +189,15 @@ export function createAsyncStore<T = unknown>(
   }
 
   const fetch = (): Promise<T> => {
+    // Stale-while-revalidate: return stale data immediately if available
+    if (state.data !== undefined && checkIsStale() && !checkIsCacheExpired()) {
+      // Background revalidation
+      executeFetch(true).catch(() => {
+        // Background error, don't affect the current promise
+      })
+      return Promise.resolve(state.data)
+    }
+    
     return executeFetch(false)
   }
 
@@ -179,9 +221,12 @@ export function createAsyncStore<T = unknown>(
     notifyListeners()
   }
 
-  const isStale = (): boolean => {
-    if (!state.lastFetched) return true
-    return Date.now() - state.lastFetched > staleTime
+  // Cleanup function for timers and listeners
+  const cleanup = () => {
+    if (cacheStatusInterval) {
+      window.clearInterval(cacheStatusInterval)
+      cacheStatusInterval = null
+    }
   }
 
   // Auto-fetch on creation if no initial data
@@ -194,7 +239,7 @@ export function createAsyncStore<T = unknown>(
   // Setup window focus refetch
   if (refetchOnWindowFocus && typeof window !== 'undefined') {
     const handleFocus = () => {
-      if (isStale() && !state.isFetching) {
+      if (checkIsStale() && !state.isFetching) {
         refetch().catch(() => {
           // Error already handled in executeFetch
         })
@@ -203,16 +248,17 @@ export function createAsyncStore<T = unknown>(
     window.addEventListener('focus', handleFocus)
   }
 
-  // Setup online/offline refetch
+  // Setup online/offline refetch with different logic
   if (refetchOnReconnect && typeof window !== 'undefined') {
-    const handleOnline = () => {
-      if (isStale() && !state.isFetching) {
+    const handleReconnect = () => {
+      // Only refetch if we have stale data and not currently fetching
+      if (checkIsStale() && !state.isFetching && state.data !== undefined) {
         refetch().catch(() => {
           // Error already handled in executeFetch
         })
       }
     }
-    window.addEventListener('online', handleOnline)
+    window.addEventListener('online', handleReconnect)
   }
 
   const actions = {
@@ -224,7 +270,8 @@ export function createAsyncStore<T = unknown>(
     refetch,
     invalidate,
     retry: retryAction,
-    mutate
+    mutate,
+    cleanup
   }
 
   // Debug info in development

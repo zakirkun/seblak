@@ -22,7 +22,10 @@
 - ⚡ **Async State Management**: Powerful async store with built-in data fetching
 - 🔄 **Server State**: Query and mutation hooks with caching and auto-refetching
 - 🔁 **Smart Retries**: Configurable retry mechanisms with exponential backoff
-- 🎯 **Cache Management**: Intelligent caching with stale-while-revalidate
+- 🎯 **Cache Management**: Intelligent caching with stale-while-revalidate strategy
+- ⚡ **Background Revalidation**: Serves stale data instantly while fetching fresh data
+- ⏱️ **Configurable Cache**: Independent control over stale time and cache expiration
+- 🔍 **Cache Status**: Real-time indicators for fresh, stale, and expired states
 - 🌐 **Network Aware**: Auto-refetch on window focus and network reconnection
 
 ## Installation
@@ -33,6 +36,32 @@ npm install @zakirkun/seblak
 yarn add @zakirkun/seblak
 # or
 pnpm add @zakirkun/seblak
+```
+
+```tsx
+// Stale-while-revalidate example
+const apiStore = createAsyncStore({
+  fetcher: () => fetchUserData(),
+  staleTime: 30000,   // 30s - data becomes stale
+  cacheTime: 300000,  // 5min - data expires from cache
+})
+
+function UserComponent() {
+  const [state, actions] = useAsyncSeblak(apiStore)
+  
+  // When data is fresh (0-30s): served immediately
+  // When data is stale (30s-5min): old data shown instantly, new data fetched in background
+  // When data is expired (5min+): loading state shown while fetching
+  
+  return (
+    <div>
+      <div>Status: {state.isStale ? 'Stale' : 'Fresh'}</div>
+      <div>Cache: {state.isCacheExpired ? 'Expired' : 'Valid'}</div>
+      <div>Data: {state.data?.name}</div>
+      {state.isFetching && <div>🔄 Updating...</div>}
+    </div>
+  )
+}
 ```
 
 ## Quick Start
@@ -179,6 +208,8 @@ const [state, actions] = useSeblak(store)
 // state.data - your actual state
 // state.loading - loading indicator
 // state.error - error message
+// state.isStale - data is stale (beyond staleTime)
+// state.isCacheExpired - data is expired (beyond cacheTime)
 
 // actions.setState(partialState) - update state
 // actions.setLoading(boolean) - set loading state

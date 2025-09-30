@@ -1,0 +1,91 @@
+.demo-container {
+  border: 2px solid #e74c3c;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 10px 0;
+  background: linear-gradient(135deg, #fff5f5, #ffebee);
+}
+
+.cache-status {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.status-indicator {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: white;
+}
+
+.fresh { background: #27ae60; }
+.stale { background: #f39c12; }
+.cached { background: #3498db; }
+.expired { background: #e74c3c; }
+.fetching { background: #9b59b6; }
+.idle { background: #95a5a6; }
+
+.data-display {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #e74c3c;
+}
+
+.cache-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.cache-actions button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #e74c3c;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.cache-actions button:hover:not(:disabled) {
+  background: #c0392b;
+}
+
+.cache-actions button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.cache-explanation {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.cache-explanation h4 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.cache-explanation ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.cache-explanation li {
+  margin: 5px 0;
+  color: #34495e;
+}
+
+.error {
+  color: #e74c3c;
+  font-weight: bold;
+}
