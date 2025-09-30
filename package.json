@@ -1,6 +1,6 @@
 {
   "name": "@zakirkun/seblak",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "🌶️ A spicy and flexible React state management library with async support - lightweight, type-safe, and powerful like the Indonesian street food it's named after",
   "type": "module",
   "main": "./dist/seblak.umd.js",

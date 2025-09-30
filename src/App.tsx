@@ -62,8 +62,13 @@ function Counter() {
 function App() {
   return (
     <div className="app">
-      <h1>🍲 Seblak State Management Demo</h1>
-      <p>A lightweight React state management library with powerful async capabilities</p>
+      <div className="app-header">
+        <img src="/seblak-logo.png" alt="Seblak Logo" className="app-logo" />
+        <div className="header-text">
+          <h1>🍲 Seblak State Management</h1>
+          <p>A lightweight React state management library with powerful async capabilities</p>
+        </div>
+      </div>
       
       <div className="demo-grid">
         <Counter />

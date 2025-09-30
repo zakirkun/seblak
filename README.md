@@ -1,6 +1,15 @@
-# 🍲 Seblak
-
-A lightweight, TypeScript-first React state management library that's as spicy and flavorful as the Indonesian dish it's named after!
+<div align="center">
+  <img src="./public/seblak-logo.png" alt="Seblak Logo" width="200" height="200" />
+  
+  # 🍲 Seblak
+  
+  <p>A lightweight, TypeScript-first React state management library that's as spicy and flavorful as the Indonesian dish it's named after!</p>
+  
+  [![npm version](https://badge.fury.io/js/@zakirkun%2Fseblak.svg)](https://badge.fury.io/js/@zakirkun%2Fseblak)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+  
+</div>
 
 ## Features
 

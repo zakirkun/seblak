@@ -13,7 +13,6 @@ export function createAsyncStore<T = unknown>(
     initialState,
     name = 'SeblakAsyncStore',
     staleTime = 5 * 60 * 1000, // 5 minutes
-    cacheTime = 10 * 60 * 1000, // 10 minutes
     retry: retryOption = 3,
     retryDelay = (attempt) => Math.min(1000 * 2 ** attempt, 30000),
     refetchOnWindowFocus = true,
