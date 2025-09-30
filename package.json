@@ -1,7 +1,7 @@
 {
   "name": "@zakirkun/seblak",
-  "version": "0.1.0",
-  "description": "A lightweight React state management library",
+  "version": "0.2.0",
+  "description": "🌶️ A spicy and flexible React state management library with async support - lightweight, type-safe, and powerful like the Indonesian street food it's named after",
   "type": "module",
   "main": "./dist/seblak.umd.js",
   "module": "./dist/seblak.es.js",
@@ -32,18 +32,25 @@
     "state-management",
     "hooks",
     "typescript",
+    "async",
+    "query",
+    "mutation",
+    "cache",
+    "data-fetching",
+    "server-state",
     "lightweight",
-    "reactive"
+    "reactive",
+    "zero-dependencies"
   ],
-  "author": "Seblak Team",
+  "author": "Muhammad Zakir Ramadhan",
   "license": "MIT",
-  "homepage": "https://github.com/seblak-team/seblak#readme",
+  "homepage": "https://github.com/zakirkun/seblak#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seblak-team/seblak.git"
+    "url": "git+https://github.com/zakirkun/seblak.git"
   },
   "bugs": {
-    "url": "https://github.com/seblak-team/seblak/issues"
+    "url": "https://github.com/zakirkun/seblak/issues"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

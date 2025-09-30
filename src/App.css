@@ -128,3 +128,161 @@
   margin: 5px 0;
   color: #7f8c8d;
 }
+
+/* Async Components Styling */
+.user-profile-async, .weather-widget {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.user-info img {
+  border-radius: 50%;
+  border: 2px solid #d35400;
+}
+
+.user-info h4 {
+  margin: 0 0 5px 0;
+  color: #2c3e50;
+}
+
+.user-info p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.actions, .weather-actions {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.actions button, .weather-actions button {
+  padding: 8px 16px;
+  border: 1px solid #007bff;
+  background: white;
+  color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.actions button:hover, .weather-actions button:hover {
+  background: #007bff;
+  color: white;
+}
+
+.actions button:disabled, .weather-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.posts-section {
+  margin-top: 20px;
+}
+
+.posts-section h4 {
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.posts-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.posts-section li {
+  background: white;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.posts-section strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.posts-section p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.weather-info {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #74b9ff, #0984e3);
+  color: white;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.weather-info h4 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.temperature {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.condition {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.weather-info small {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.weather-status {
+  background: #e9ecef;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 15px 0;
+}
+
+.weather-status p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #495057;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+}

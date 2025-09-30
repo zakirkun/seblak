@@ -1,5 +1,6 @@
 import { createStore, useSeblak } from './lib'
 import { UserProfileDemo } from './examples/UserProfile'
+import { UserProfile, WeatherWidget } from './examples/AsyncExamples'
 import './App.css'
 
 // Define the shape of our counter state
@@ -62,11 +63,13 @@ function App() {
   return (
     <div className="app">
       <h1>🍲 Seblak State Management Demo</h1>
-      <p>A lightweight React state management library</p>
+      <p>A lightweight React state management library with powerful async capabilities</p>
       
       <div className="demo-grid">
         <Counter />
         <UserProfileDemo />
+        <UserProfile />
+        <WeatherWidget />
       </div>
       
       <div className="info-section">
@@ -78,6 +81,12 @@ function App() {
           <li>✅ Built-in loading and error states</li>
           <li>✅ Reset functionality</li>
           <li>✅ Debug information</li>
+          <li>🆕 Asynchronous state management</li>
+          <li>🆕 Server-state utilities</li>
+          <li>🆕 Data fetching with caching</li>
+          <li>🆕 Query and mutation hooks</li>
+          <li>🆕 Automatic refetching</li>
+          <li>🆕 Retry mechanisms</li>
         </ul>
       </div>
     </div>
